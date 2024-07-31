@@ -68,5 +68,15 @@ mkShell {
     # Prevent the avr-gcc wrapper from picking up host GCC flags
     # like -iframework, which is problematic on Darwin
     unset NIX_CFLAGS_COMPILE_FOR_TARGET
+
+    # Set the ARM GCC toolchain environment variables
+    export CC=arm-none-eabi-gcc
+    # export CXX=arm-none-eabi-g++
+    # export AR=arm-none-eabi-ar
+    # export AS=arm-none-eabi-as
+    # export LD=arm-none-eabi-ld
+    export OBJCOPY=arm-none-eabi-objcopy
+    # export OBJDUMP=arm-none-eabi-objdump
+    # export STRIP=arm-none-eabi-strip
   '';
 }
