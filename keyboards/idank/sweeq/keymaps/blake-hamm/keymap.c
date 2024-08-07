@@ -67,7 +67,7 @@ bool process_detected_host_os_kb(os_variant_t os) {
     //     case OS_UNSURE:
     //         break;
     // }
-    
+
     return true;
 }
 
