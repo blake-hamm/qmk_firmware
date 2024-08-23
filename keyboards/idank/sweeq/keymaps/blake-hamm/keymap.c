@@ -223,14 +223,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         default:
             return true; // Process all other keycodes normally
     }
-    return true; // Process all other keycodes normally
+    return true; // Process all other keycodes normally;
 }
-
-// Deal with trackpoint that drags down
-void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
-  // Moving up.
-  if (mouse_report->y < 0) {
-    mouse_report->y *= PS2_MOUSE_MULTIPLIER;
-  }
-}
-

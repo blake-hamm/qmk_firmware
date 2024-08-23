@@ -10,7 +10,7 @@ qmk json2c \
   -o keyboards/idank/sweeq/keymaps/blake-hamm/keymap.c
   
 # To json to c
-qmk json2c \
+qmk c2json \
   keyboards/idank/sweeq/keymaps/blake-hamm/keymap.c \
   -o keyboards/idank/sweeq/keymaps/blake-hamm/idank_sweeq_blake-hamm.json
 
@@ -18,7 +18,15 @@ qmk json2c \
 make idank/sweeq:blake-hamm:flash \
   -e TARGET=blake-hamm \
   -e USER_NAME=idank \
-  -e POINTING_DEVICE=trackpoint \
-  -e POINTING_DEVICE_POSITION=right \
+  -e POINTING_DEVICE=trackpoint_cirque40 \
+  -e SIDE=right \
   -j20
+  
+# To make with one device
+make idank/sweeq:blake-hamm:flash \
+    -e TARGET=blake-hamm \
+    -e USER_NAME=idank \
+    -e POINTING_DEVICE=cirque40 \
+    -e POINTING_DEVICE_POSITION=right \
+    -j20
 ```
