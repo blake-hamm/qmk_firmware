@@ -16,13 +16,13 @@
     #define MASTER_LEFT
 #elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_TRACKPOINT
     #define MASTER_RIGHT
-#elif POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35
+#elif defined(POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE35) || defined(POINTING_DEVICE_CONFIGURATION_PIMORONI_CIRQUE40)
     #define MASTER_RIGHT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
     // A pimoroni on the left side can only go in this orientation.
     #define POINTING_DEVICE_ROTATION_270
-#elif POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI
+#elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI)
     #define MASTER_RIGHT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
@@ -70,6 +70,13 @@
         #define CIRQUE_PINNACLE_DIAMETER_MM 40
     #else
         #error "Unknown Cirque configuration."
+    #endif
+    // Cirque 40mm on the left side of a split keyboard is rotated 180 degrees.
+    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) && defined(POINTING_DEVICE_POSITION_LEFT)
+        #define POINTING_DEVICE_ROTATION_180
+    #endif
+    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_TRACKPOINT)
+        #define POINTING_DEVICE_ROTATION_180
     #endif
     // Tap for left click.
     #define CIRQUE_PINNACLE_TAP_ENABLE
