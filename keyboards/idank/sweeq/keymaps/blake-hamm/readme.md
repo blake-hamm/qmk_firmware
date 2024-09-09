@@ -26,7 +26,7 @@ make idank/sweeq:blake-hamm:flash \
 make idank/sweeq:blake-hamm:flash \
     -e TARGET=blake-hamm \
     -e USER_NAME=idank \
-    -e POINTING_DEVICE=cirque40 \
+    -e POINTING_DEVICE=trackpoint \
     -e POINTING_DEVICE_POSITION=right \
     -j20
 ```
