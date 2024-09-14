@@ -21,7 +21,7 @@ os_variant_t detected_os = OS_UNSURE;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = LAYOUT_split_3x5_2(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_ENT, LT(2,KC_SPC), LT(1,KC_BSPC), LT(3,KC_DEL)),
+	[0] = LAYOUT_split_3x5_2(KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, RSFT_T(KC_J), RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(KC_SCLN), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, DRAG_SCROLL_ENT, LT(2,KC_SPC), LT(1,KC_BSPC), LT(3,KC_DEL)),
 	[1] = LAYOUT_split_3x5_2(KC_LBRC, KC_7, KC_8, KC_9, KC_RBRC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_QUOT, KC_4, KC_5, KC_6, KC_EQL, KC_NO, KC_RSFT, KC_NO, KC_NO, KC_NO, KC_GRV, KC_1, KC_2, KC_3, KC_MINS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_0, KC_BSLS, KC_NO, KC_NO),
 	[2] = LAYOUT_split_3x5_2(KC_WH_R, KC_WH_D, KC_WH_U, KC_WH_L, KC_NO, REDO, PASTE, COPY, CUT, UNDO, KC_NO, SAVE, KC_BTN2, KC_BTN1, KC_NO, KC_CAPS, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_NO, KC_NO, KC_TAB, KC_ESC),
 	[3] = LAYOUT_split_3x5_2(KC_LEFT_CURLY_BRACE, KC_AMPERSAND, KC_ASTERISK, KC_LEFT_PAREN, KC_RIGHT_CURLY_BRACE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_DOUBLE_QUOTE, KC_DOLLAR, KC_PERCENT, KC_CIRCUMFLEX, KC_PLUS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TILDE, KC_EXCLAIM, KC_AT, KC_HASH, KC_UNDERSCORE, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_RIGHT_PAREN, KC_BSLS, KC_NO, KC_NO)
@@ -42,7 +42,7 @@ bool set_scrolling = false;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
-        mouse_report.h = mouse_report.x;
+        mouse_report.h = -mouse_report.x;
         mouse_report.v = mouse_report.y;
         mouse_report.x = 0;
         mouse_report.y = 0;
@@ -80,14 +80,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case DRAG_SCROLL_ENT:
             if (record->event.pressed) {
                 ds_timer = timer_read();  // Start the timer when the key is pressed
+                set_scrolling = true;
             } else {
-                if (timer_elapsed(ds_timer) > TAPPING_TERM) {
-                    // If held longer than TAPPING_TERM, trigger DRAG_SCROLL
-                    set_scrolling = !set_scrolling;
-                } else {
+                if (timer_elapsed(ds_timer) < TAPPING_TERM) {
                     // If tapped, send Enter
                     tap_code(KC_ENT);
                 }
+                // Ensure scrolling is disabled when the key is released
+                set_scrolling = false;
             }
             return false;
 
