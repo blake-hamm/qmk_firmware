@@ -77,6 +77,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t ds_timer;
 
     switch (keycode) {
+        // TODO: Switch to tap dance - https://docs.qmk.fm/features/tap_dance
         case DRAG_SCROLL_ENT:
             if (record->event.pressed) {
                 ds_timer = timer_read();  // Start the timer when the key is pressed
