@@ -23,7 +23,7 @@
     // A pimoroni on the left side can only go in this orientation.
     #define POINTING_DEVICE_ROTATION_270
 #elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI)
-    #define MASTER_RIGHT
+    #define MASTER_LEFT
     // The pimoroni needs frequest updates, set a value so the Cirque configs don't set it to 10ms.
     #define POINTING_DEVICE_TASK_THROTTLE_MS 1
     // Determine right side rotation based on POINTING_DEVICE_POSITION flag.
@@ -57,9 +57,24 @@
     #elif defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_THUMB_INNER) || defined(POINTING_DEVICE_POSITION_MIDDLE)
         #define MASTER_RIGHT
     #endif
+#elif defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE35) || defined(POINTING_DEVICE_CONFIGURATION_TRACKPOINT)
+    #ifdef POINTING_DEVICE_POSITION_LEFT
+        #define MASTER_LEFT
+    #elif POINTING_DEVICE_POSITION_RIGHT
+        #define MASTER_RIGHT
+    #endif
 #else
     // No pointing device, default to right.
     #define MASTER_RIGHT
+#endif
+
+
+// Cirque 40mm on the left side of a split keyboard is rotated 180 degrees.
+#if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) && defined(POINTING_DEVICE_POSITION_LEFT)
+    #define POINTING_DEVICE_ROTATION_180
+#endif
+#if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_TRACKPOINT)
+    #define POINTING_DEVICE_ROTATION_180
 #endif
 
 // Generic Cirque configuration.
@@ -71,13 +86,7 @@
     #else
         #error "Unknown Cirque configuration."
     #endif
-    // Cirque 40mm on the left side of a split keyboard is rotated 180 degrees.
-    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40) && defined(POINTING_DEVICE_POSITION_LEFT)
-        #define POINTING_DEVICE_ROTATION_180
-    #endif
-    #if defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_PIMORONI) || defined(POINTING_DEVICE_CONFIGURATION_CIRQUE40_TRACKPOINT)
-        #define POINTING_DEVICE_ROTATION_180
-    #endif
+
     // Tap for left click.
     #define CIRQUE_PINNACLE_TAP_ENABLE
     #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
