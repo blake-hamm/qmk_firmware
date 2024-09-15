@@ -42,8 +42,8 @@ bool set_scrolling = false;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
-        mouse_report.h = -mouse_report.x;
-        mouse_report.v = mouse_report.y;
+        mouse_report.h = -mouse_report.x/4;
+        mouse_report.v = mouse_report.y/4;
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
