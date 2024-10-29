@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "custom_config.h"
+#include "idank_config.h"
 
 // default but used in macros
 #undef TAPPING_TERM
