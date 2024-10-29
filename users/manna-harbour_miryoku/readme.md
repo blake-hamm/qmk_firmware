@@ -18,14 +18,15 @@ qmk compile -kb idank/spankbd -km manna-harbour_miryoku \
 
 qmk flash -kb idank/spankbd -km manna-harbour_miryoku \
     -e MIRYOKU_ALPHAS=QWERTY \
+    -e MIRYOKU_CLIPBOARD=FUN \
     -e POINTING_DEVICE=trackpoint \
     -e POINTING_DEVICE_POSITION=right \
     -e OLED=yes
     
 qmk flash -kb idank/spankbd -km manna-harbour_miryoku \
     -e MIRYOKU_ALPHAS=QWERTY \
+    -e MIRYOKU_CLIPBOARD=MAC \
     -e POINTING_DEVICE=trackpoint \
     -e POINTING_DEVICE_POSITION=right \
-    -e MIRYOKU_CLIPBOARD=MAC \
     -e OLED=yes
 ```
