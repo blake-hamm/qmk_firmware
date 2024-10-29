@@ -6,6 +6,8 @@
 #include QMK_KEYBOARD_H
 
 #include "manna-harbour_miryoku.h"
+#include "custom_keycodes.h"
+#include "custom_keycodes.c"
 
 
 // Additional Features double tap guard
@@ -89,3 +91,29 @@ combo_t key_combos[COMBO_COUNT] = {
   COMBO(thumbcombos_fun, KC_APP)
 };
 #endif
+
+// Process host os
+bool process_detected_host_os_kb(os_variant_t os) {
+    if (!process_detected_host_os_user(os)) {
+        return false;
+    }
+    detected_os = os;  // Update the global variable
+    // switch (detected_os) {
+    //     case OS_MACOS:
+    //     case OS_IOS:
+    //         break;
+    //     case OS_WINDOWS:
+    //         break;
+    //     case OS_LINUX:
+    //         break;
+    //     case OS_UNSURE:
+    //         break;
+    // }
+
+    return true;
+}
+
+// Process custom keycodes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return process_custom_keycodes(keycode, record);
+}

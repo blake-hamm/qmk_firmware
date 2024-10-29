@@ -42,6 +42,12 @@ MIRYOKU_LAYER_LIST
   #define U_CPY C(KC_C)
   #define U_CUT C(KC_X)
   #define U_UND C(KC_Z)
+#elif defined (MIRYOKU_CLIPBOARD_BH)
+  #define U_RDO BH_REDO
+  #define U_PST BH_PASTE
+  #define U_CPY BH_COPY
+  #define U_CUT BH_CUT
+  #define U_UND BH_UNDO
 #else
   #define U_RDO KC_AGIN
   #define U_PST S(KC_INS)
